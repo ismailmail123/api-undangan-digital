@@ -2,24 +2,21 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
     async up(queryInterface, Sequelize) {
-        await queryInterface.createTable('responses', {
+        await queryInterface.createTable('sounds', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-            recipient_id: {
+            user_id: {
                 type: Sequelize.INTEGER
             },
-            name: {
+            title: {
                 type: Sequelize.STRING
             },
-            message: {
+            sound_url: {
                 type: Sequelize.TEXT
-            },
-            absen: {
-                type: Sequelize.STRING
             },
             created_at: {
                 allowNull: false,
@@ -34,6 +31,6 @@ module.exports = {
         });
     },
     async down(queryInterface, Sequelize) {
-        await queryInterface.dropTable('responses');
+        await queryInterface.dropTable('sounds');
     }
 };

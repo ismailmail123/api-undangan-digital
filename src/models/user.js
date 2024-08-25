@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
             })
             user.hasMany(models.card_payment, {
                 foreignKey: "user_id",
-                as: 'card_payment'
+                as: 'cardpayment'
             })
         }
     }

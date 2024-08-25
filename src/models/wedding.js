@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         parthner_name: DataTypes.STRING,
         date: DataTypes.DATE,
         time: DataTypes.TIME,
-        adress: DataTypes.TEXT,
+        address: DataTypes.TEXT,
         sound: DataTypes.TEXT
     }, {
         sequelize,
