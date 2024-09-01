@@ -36,7 +36,8 @@ module.exports = (sequelize, DataTypes) => {
         address: DataTypes.STRING,
         profile_image: DataTypes.TEXT,
         cover_image: DataTypes.TEXT,
-        thems_image: DataTypes.TEXT
+        thems_image: DataTypes.TEXT,
+        thems_image1: DataTypes.TEXT
     }, {
         sequelize,
         modelName: 'user',

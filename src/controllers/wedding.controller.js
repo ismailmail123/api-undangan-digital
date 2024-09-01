@@ -54,7 +54,6 @@ const show = async(req, res, _next) => {
         return res.status(500).send({ message: "Internal Server Error" });
     }
 };
-
 const create = async(req, res, _next) => {
     try {
         const currentUser = req.user;
@@ -62,8 +61,17 @@ const create = async(req, res, _next) => {
 
         console.log("Request body:", req.body);
 
-        if (!name || !parthner_name || !date || !time || !address || !sound) {
-            return res.status(400).send({ message: "Permintaan tidak valid, pastikan semua data diisi" });
+        // if (!name || !parthner_name || !date || !time || !address || !sound) {
+        //     return res.status(400).send({ message: "Permintaan tidak valid, pastikan semua data diisi" });
+        // }
+
+        // Check if the user has already created a record
+        const existingWedding = await WeddingModel.findOne({
+            where: { user_id: currentUser.id },
+        });
+
+        if (existingWedding) {
+            return res.status(403).send({ message: "User sudah memiliki data yang dibuat, tidak dapat membuat lebih dari satu." });
         }
 
         // URL file suara yang telah diupload ke Cloudinary
@@ -88,6 +96,7 @@ const create = async(req, res, _next) => {
         return res.status(500).send({ message: "Internal Server Error" });
     }
 };
+
 
 
 

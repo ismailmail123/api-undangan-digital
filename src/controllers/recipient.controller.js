@@ -8,10 +8,15 @@ const { recipient: RecipientModel, user: UserModel, wedding: WeddingModel, galer
 
 const index = async(req, res, _next) => {
     try {
+        const currentUser = req.user;
+
         const recipients = await RecipientModel.findAll({
+            where: {
+                user_id: currentUser.id,
+            },
             include: [{
                 model: UserModel,
-                attributes: ["username", "email", "address", "profile_image", "cover_image", "thems_image"],
+                attributes: ["username", "email", "address", "profile_image", "cover_image", "thems_image", "thems_image1"],
                 as: "user",
             }],
         });
@@ -40,7 +45,7 @@ const show = async(req, res, _next) => {
         const recipients = await RecipientModel.findByPk(id, {
             include: [{
                 model: UserModel,
-                attributes: ["username", "email", "address", "profile_image", "cover_image", "thems_image"],
+                attributes: ["username", "email", "address", "profile_image", "cover_image", "thems_image", "thems_image1"],
                 as: "user",
                 include: [{
                         model: GalerieModel,
@@ -139,6 +144,48 @@ const update = async(req, res, _next) => {
         return res.status(500).send({ message: "Internal Server Error" });
     }
 };
+const status = async(req, res, _next) => {
+    try {
+        const currentUser = req.user;
+        const { id } = req.params;
+        const { status } = req.body;
+
+        console.log("ini id", id)
+
+        if (!id) {
+            return res.status(400).send({ message: "Recipient ID tidak ditemukan" });
+        }
+
+        const recipient = await RecipientModel.findOne({
+            where: {
+                id: id,
+                user_id: currentUser.id,
+            },
+        });
+
+        if (!recipient) {
+            return res.status(404).send({ message: "Produk tidak ditemukan atau Anda tidak memiliki izin untuk memperbaruinya" });
+        }
+
+        // Memvalidasi inputan dari user
+        if (!status) {
+            return res.status(400).send({ message: "Tidak ada data yang diperbarui" });
+        }
+
+
+        const updatedRecipient = await recipient.update({
+            status,
+        });
+
+        return res.send({
+            message: "Product updated successfully",
+            data: updatedRecipient,
+        });
+    } catch (error) {
+        console.error("Error:", error);
+        return res.status(500).send({ message: "Internal Server Error" });
+    }
+};
 
 
 /**
@@ -178,4 +225,4 @@ const remove = async(req, res, _next) => {
 
 
 
-module.exports = { index, show, create, update, remove };
+module.exports = { index, show, create, update, remove, status };

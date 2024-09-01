@@ -1,8 +1,16 @@
 const { sound: SoundModel, user: UserModel } = require("../models");
+const { Op } = require("sequelize");
 
 const index = async(req, res, _next) => {
     try {
+        const currentUser = req.user;
         const sounds = await SoundModel.findAll({
+            where: {
+                [Op.or]: [
+                    { user_id: null },
+                    { user_id: currentUser.id }, // Tema yang dimiliki oleh user yang sedang login
+                ],
+            },
             // include: [{
             //     model: UserModel,
             //     attributes: ["username", "email", "address", "profile_image", "cover_image", "thems_image"],

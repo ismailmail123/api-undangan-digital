@@ -5,11 +5,12 @@ const multer = require("multer");
 const { storage } = require("../storage/storage");
 const upload = multer({ storage });
 
-const { index, update } = require("../controllers/user.controller.js");
+const { index, show, update } = require("../controllers/user.controller.js");
 const { validateToken } = require("../middlewares/auth");
 
 // Rute untuk mendapatkan daftar pengguna
 router.get("/users", validateToken, index);
+router.get("/users/:id", validateToken, show);
 
 // Rute untuk memperbarui data pengguna, termasuk gambar
 // Menggunakan upload.fields untuk menangani beberapa field gambar

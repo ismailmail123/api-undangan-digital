@@ -8,7 +8,11 @@ const { user: UserModel, card_payment: Card_paymentModel } = require("../models"
 
 const index = async(req, res, _next) => {
     try {
+        const currentUser = req.user;
         const cardpayments = await Card_paymentModel.findAll({
+            where: {
+                user_id: currentUser.id,
+            },
             include: [{
                 model: UserModel,
                 attributes: ["username", "email", "address", "profile_image", "cover_image", "thems_image"],

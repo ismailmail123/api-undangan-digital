@@ -24,7 +24,8 @@ module.exports = (sequelize, DataTypes) => {
     recipient.init({
         user_id: DataTypes.INTEGER,
         name: DataTypes.STRING,
-        number: DataTypes.STRING
+        number: DataTypes.STRING,
+        status: DataTypes.STRING
     }, {
         sequelize,
         modelName: 'recipient',

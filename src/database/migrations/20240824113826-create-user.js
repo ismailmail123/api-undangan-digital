@@ -30,6 +30,9 @@ module.exports = {
             thems_image: {
                 type: Sequelize.TEXT
             },
+            thems_image1: {
+                type: Sequelize.TEXT
+            },
             created_at: {
                 allowNull: false,
                 defaultValue: Sequelize.fn("NOW"),

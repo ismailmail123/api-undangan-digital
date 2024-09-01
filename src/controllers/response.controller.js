@@ -8,7 +8,11 @@ const { response: ResponseModel, recipient: RecipientModel } = require("../model
 
 const index = async(req, res, _next) => {
     try {
+        // const currentUser = req.user;
         const responses = await ResponseModel.findAll({
+            // where: {
+            //     id: currentUser.id
+            // },
             include: [{
                 model: RecipientModel,
                 as: "recipient",

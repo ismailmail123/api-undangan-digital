@@ -17,8 +17,44 @@ const index = async(req, res, _next) => {
             where: {
                 id: currentUser.id,
             },
-            attributes: ["username", "profile_image", "cover_image", "thems_image"],
+            attributes: ["id", "username", "profile_image", "cover_image", "thems_image", "thems_image1"],
 
+        });
+
+        return res.send({
+            message: "Success",
+            data: users,
+        });
+    } catch (error) {
+        console.error("Error:", error);
+        return res.status(500).send({ message: "Internal Server Error" });
+    }
+};
+
+const show = async(req, res, _next) => {
+
+    const { id } = req.params;
+    try {
+        const users = await UserModel.findByPk(id, {
+            attributes: ["username", "email", "address", "profile_image", "cover_image", "thems_image", "thems_image1"],
+            // include: [{
+            //     model: UserModel,
+            //     attributes: ["username", "email", "address", "profile_image", "cover_image", "thems_image", "thems_image1"],
+            //     as: "user",
+            //     include: [{
+            //             model: GalerieModel,
+            //             as: "galerie",
+            //         },
+            //         {
+            //             model: WeddingModel,
+            //             as: "wedding",
+            //         },
+            //         {
+            //             model: Card_paymentModel,
+            //             as: "cardpayment",
+            //         }
+            //     ],
+            // }],
         });
 
         return res.send({
@@ -33,7 +69,7 @@ const index = async(req, res, _next) => {
 
 const update = async(req, res) => {
     const { id } = req.params;
-    const { thems_image } = req.body;
+    const { thems_image, thems_image1 } = req.body;
 
     // Mendapatkan URL gambar dari upload
     const profile_image = req.files['profile_image'] ? req.files['profile_image'][0].path : null;
@@ -46,6 +82,7 @@ const update = async(req, res) => {
         if (profile_image) updateData.profile_image = profile_image;
         if (cover_image) updateData.cover_image = cover_image;
         if (thems_image) updateData.thems_image = thems_image;
+        if (thems_image1) updateData.thems_image1 = thems_image1;
 
         // Update data pengguna
         const [updated] = await UserModel.update(updateData, {
@@ -55,7 +92,7 @@ const update = async(req, res) => {
         if (updated) {
             const updatedUser = await UserModel.findOne({
                 where: { id },
-                attributes: ["username", "profile_image", "cover_image", "thems_image"],
+                attributes: ["username", "profile_image", "cover_image", "thems_image", "thems_image"],
             });
 
             return res.send({
@@ -72,4 +109,4 @@ const update = async(req, res) => {
 };
 
 
-module.exports = { index, update };
+module.exports = { index, show, update };
