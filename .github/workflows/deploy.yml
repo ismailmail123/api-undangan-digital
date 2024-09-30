@@ -1,4 +1,4 @@
-name: bingle-shop
+name: api-undangan
 
 on:
   push:
@@ -18,7 +18,7 @@ jobs:
           key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            git config --global --add safe.directory /api-undangan
+            git config --global --add safe.directory /home/hp/api-undangan
             
             curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -
             apt install -y nodejs
@@ -29,7 +29,7 @@ jobs:
             npm install -g pm2
 
             # Change to the project directory and execute the build script
-            cd /api-undangan
+            cd /home/hp/api-undangan
             #chmod +x ./build.sh
             #./build.sh
             git pull origin main
