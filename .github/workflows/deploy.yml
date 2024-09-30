@@ -1,0 +1,37 @@
+name: bingle-shop
+
+on:
+  push:
+    branches: ['main']
+  pull_request:
+    branches: ['main']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy using ssh
+        uses: appleboy/ssh-action@master
+        with:
+          host: '34.16.106.160'
+          username: 'root'
+          key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            git config --global --add safe.directory /api-undangan
+            
+            curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+            apt install -y nodejs
+
+            npm install -g npm@latest
+
+            # Ensure pm2 is installed
+            npm install -g pm2
+
+            # Change to the project directory and execute the build script
+            cd /api-undangan
+            #chmod +x ./build.sh
+            #./build.sh
+            git pull origin main
+            pm2 delete api-undangan
+            pm2 start main.js -n api-undangan
