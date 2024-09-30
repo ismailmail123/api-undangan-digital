@@ -18,7 +18,7 @@ jobs:
           key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            git config --global --add safe.directory /home/hp/api-undangan
+            git config --global --add safe.directory /home/hp/api-undangan-digital
             
             curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -
             apt install -y nodejs
@@ -29,7 +29,7 @@ jobs:
             npm install -g pm2
 
             # Change to the project directory and execute the build script
-            cd /home/hp/api-undangan
+            cd /home/hp/api-undangan-digital
             #chmod +x ./build.sh
             #./build.sh
             git pull origin main
