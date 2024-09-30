@@ -34,4 +34,4 @@ jobs:
             #./build.sh
             git pull origin main
             pm2 delete api-undangan
-            pm2 start main.js -n api-undangan-digital
+            pm2 start index.js -n api-undangan-digital
