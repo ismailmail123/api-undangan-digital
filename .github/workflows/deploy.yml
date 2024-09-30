@@ -1,4 +1,4 @@
-name: api-undangan
+name: api-undangan-digital
 
 on:
   push:
