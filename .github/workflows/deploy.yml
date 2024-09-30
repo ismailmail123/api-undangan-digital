@@ -34,5 +34,6 @@ jobs:
             #chmod +x ./build.sh
             #./build.sh
             git pull origin main
+            sequelize-cli db:seed:all
             pm2 delete api-undangan-digital
             pm2 start index.js -n api-undangan-digital

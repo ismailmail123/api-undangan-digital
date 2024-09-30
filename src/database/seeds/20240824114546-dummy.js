@@ -65,8 +65,11 @@ module.exports = {
         ]);
         await queryInterface.bulkInsert("sounds", [
             { id: 1, title: "Sound 1", sound_url: "https://res.cloudinary.com/dwijz2qny/video/upload/v1724914035/audio-backsound_2_vsbdl2.mp3" },
+            { id: 2, title: "Sound 2", sound_url: "https://res.cloudinary.com/dwijz2qny/video/upload/v1727703285/sound_digital_qg42s1.mp3" },
+            { id: 3, title: "Sound 3", sound_url: "https://res.cloudinary.com/dwijz2qny/video/upload/v1727703413/sound_digital_1_qp1vbo.mp3" },
 
         ]);
+
 
     },
     /**
