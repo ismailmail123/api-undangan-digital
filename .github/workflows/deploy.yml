@@ -31,7 +31,6 @@ jobs:
             # Change to the project directory and execute the build script
             cd /home/hp/api-undangan
             #chmod +x ./build.sh
-            #chmod +x ./build.sh
             #./build.sh
             git pull origin main
             pm2 delete api-undangan
